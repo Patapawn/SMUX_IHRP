@@ -34,7 +34,9 @@
                         <h1 class="page-header">SMUXtremists Integrated HR Portal</h1>
                     </div>
 
-                    TODO: SUCCESSFUL REGISTRATION PAGE!
+                    show: SUCCESSFUL REGISTRATION PAGE!
+                    perhaps this page can be the general success page for event or for whatever. decide how to render using php logic?
+
 
                     <!-- /.col-lg-12 -->
                 </div>

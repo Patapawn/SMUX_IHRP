@@ -111,7 +111,8 @@ foreach ($additional_fields as $index => $fieldrow) {
             $errorArray[] = 'JSON Errror, Please Check Additional Fields';
         }
     } else {
-        //no entry so echo none
+        $JSON_string_to_db = "NONE";
+        //no entry so input NONE to db.
         //echo "none";
     }
 
@@ -141,14 +142,14 @@ if ($validation_success) {
     //generate eventid GET THIS FINALIZED
 
     $event_id = substr($team, 0, 3) . substr($event_date, 2, 2) . substr($event_date, 4, 6);
-
+    $event_id_hash = md5($event_id);
 
     //echo $event_id;
     //echo $eventid;
     //insert statements
     //eventid, event name, team, type, event date, event desc, extra fields
 
-    $sql_insert_into_event = 'insert into event values(?,?,?,?,?,?,?,?)';
+    $sql_insert_into_event = 'insert into event values(?,?,?,?,?,?,?,?,?)';
 
     //Prepare statement
     $pstmt = $con->prepare($sql_insert_into_event);
@@ -159,7 +160,7 @@ if ($validation_success) {
 
 
     //Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob
-    $pstmt->bind_param('ssssssss', $event_id, $event_name, $team, $event_type, $event_date, $event_description, $JSON_string_to_db, $allow_signups);
+    $pstmt->bind_param('sssssssss', $event_id, $event_id_hash, $event_name, $team, $event_type, $event_date, $event_description, $JSON_string_to_db, $allow_signups);
     $pstmt->execute();
     $pstmt->close();
 

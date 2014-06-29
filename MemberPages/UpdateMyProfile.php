@@ -90,8 +90,8 @@ include('../views/_protect.php');
                                             if ($profileupdated == "true") {
                                                 $redirect_to = '../Controller/SignUpForEventController.php?eventid=' . $eventid . ' &email=' . $email . '&profileupdated=' . $profileupdated;
                                                 ?>
-                                                You may now carry on with signing up for your event :D
-                                                <a href=""><button type="button" class="btn btn-primary btn-xs">Sign up here!</button></a>
+                                                You may now carry on with signing up for your event :D<br>
+                                                <a href="<?php echo $redirect_to; ?>"><button type="button" class="btn btn-primary btn-xs">Click ME!</button></a>
 
                                                 <?php
                                             }

@@ -49,6 +49,18 @@ $on_success_redirect_to = "../MemberPages/UpdateMyProfile.php";
 $on_failure_redirect_to = "../MemberPages/UpdateMyProfile.php";
 
 
+//this is to get the post value which determines if user is updating profile to sign up for an event
+//if this value is retrieved as true, that means user is updating profile to sign up for event
+//if this value is false, user is just updating normally.
+if (isset($_POST['eventid'])) {
+
+    $eventid = sanitizeData(filter_input(INPUT_POST, 'eventid'));
+
+    $on_success_redirect_to = "../MemberPages/UpdateMyProfile.php?eventid=" . $eventid . " &profileupdated=true";
+    //echo $on_success_redirect_to;
+}
+
+
 //print_r($_POST);
 //echo $smu_email;
 //$user_password = sanitizeData(filter_input(INPUT_POST, 'password'));
@@ -75,6 +87,8 @@ if (!password_verify($user_password, $user_password_from_db)) {
     $pstmt->close();
     $con->close();
     $_SESSION['status'] = 'failure';
+
+
     header("Location: $on_failure_redirect_to");
     exit();
 } else {
@@ -107,7 +121,9 @@ if (!password_verify($user_password, $user_password_from_db)) {
 
 
     $_SESSION['status'] = 'success';
-    header("Location: $on_failure_redirect_to");
+
+
+    header("Location: $on_success_redirect_to");
     exit();
 }
 
