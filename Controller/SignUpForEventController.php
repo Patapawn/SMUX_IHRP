@@ -51,6 +51,8 @@ if (!$profile_has_been_updated) {
     } else {
 
 //event dao write to the event participant table
+        //echo $person_sign_up;
+        //echo $eventidmd5hash;
         if ($eventDAO->assignSMUXMEMBERParticipantToEvent($eventidmd5hash, $person_sign_up, "NONE")) {
             //redirect to success page
 

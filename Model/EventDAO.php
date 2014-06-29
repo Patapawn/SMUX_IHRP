@@ -18,28 +18,34 @@ class EventDAO {
      * incomplete
      */
 
-    public function getEventIdFromHash($event_id_md5) {
+    public function getEventIdFromHash($event_id_md5_hash) {
+        //echo $event_id_md5_hash;
+
         if (!$this->getDatabaseConnection()) {
             //echo failure on lousy connection
             return false;
         } else {
+
             $returnEventID = "";
             $query = 'select * from event where event_id_md5 = ?';
+
             $pstmt = $this->db_connection->prepare($query);
             if ($pstmt === false) {
                 trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
                 return false;
             }
-            $pstmt->bind_param('s', $event_id_md5);
+
+            $pstmt->bind_param('s', $event_id_md5_hash);
             $pstmt->execute();
 
-            $pstmt->bind_result($event_id);
+            $pstmt->bind_result($event_id, $event_id_md5, $event_name, $team, $event_type, $event_date, $description, $additional_fields, $allow_signups);
 
             while ($pstmt->fetch()) {
                 $returnEventID = $event_id;
             }
 
-            $this->db_connection->close();
+            $pstmt->close();
+            //$this->db_connection->close();
             return $returnEventID;
         }
     }
@@ -57,7 +63,7 @@ class EventDAO {
         $returnValue = false;
         if (!$this->getDatabaseConnection()) {
             //echo failure on lousy connection
-            return "DB FAILURE";
+            return false;
         } else {
 
             $query = 'select additional_fields from event where event_id_md5 = ?';
@@ -66,6 +72,7 @@ class EventDAO {
 
             if ($pstmt === false) {
                 trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+                return false;
             }
 
             $pstmt->bind_param('s', $event_id_md5);
@@ -82,8 +89,8 @@ class EventDAO {
                 }
             }
 
-
-            $this->db_connection->close();
+            $pstmt->close();
+            //$this->db_connection->close();
             return $returnValue;
         }
     }
@@ -104,6 +111,7 @@ class EventDAO {
 
             $eventid = $this->getEventIdFromHash($eventidmd5hash);
 
+
             if (strtolower($additionalfield) == "none") {
                 //this one has no additional participant data to input to db
                 $query = 'insert into event_participant(event_id, member) values(?,?)';
@@ -122,8 +130,21 @@ class EventDAO {
                 return true;
             } else {
                 //this includes additional participant info to input to db
+                $query = 'insert into event_participant(event_id, member, remarks) values(?,?,?)';
+
+                $pstmt = $this->db_connection->prepare($query);
+
+                if ($pstmt === false) {
+                    trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+                    return false;
+                }
+                $pstmt->bind_param('sss', $eventid, $person_sign_up, $additionalfield);
+
+                $pstmt->execute();
 
 
+                $pstmt->close();
+                $this->db_connection->close();
                 return true;
             }
 
@@ -138,7 +159,7 @@ class EventDAO {
      */
 
     public function assignNONSMUXParticipantToEvent($eventidmd5hash, $person_sign_up) {
-
+        return true;
     }
 
     private function getDatabaseConnection() {
