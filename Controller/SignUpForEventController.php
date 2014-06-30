@@ -54,11 +54,15 @@ if (!$profile_has_been_updated) {
         //echo $person_sign_up;
         //echo $eventidmd5hash;
         if ($eventDAO->assignSMUXMEMBERParticipantToEvent($eventidmd5hash, $person_sign_up, "NONE")) {
-            //redirect to success page
 
-            echo "success with no addfelds!";
-            //echo $person_sign_up;
+            $eventSignedUpFor = $eventDAO->getEventNameFromHash($eventidmd5hash);
+            $dateOfEventSignedUpFor = $eventDAO->getEventDateFromHash($eventidmd5hash);
+
+            echo "You have successfuly signed up for " . $eventSignedUpFor . " happening on " . $dateOfEventSignedUpFor . " (no additional fields)";
+
+            //redirect to success page, push those two variables and inform user.
         } else {
+            //code should not come here at all...
             echo "error";
         }
     }

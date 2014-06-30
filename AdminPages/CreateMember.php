@@ -85,6 +85,12 @@
                                                     </div>
 
                                                     <div class="form-group">
+                                                        <label>Alternate / Secondary Email</label>
+                                                        <input name="alt_email" class="form-control" placeholder="abc@xxx.com" value= "<?php echo $_SESSION['values'][1]; ?>">
+
+                                                    </div>
+
+                                                    <div class="form-group">
                                                         <label>Password</label>
                                                         <input name ="password" type="text" class="form-control" placeholder="">
                                                     </div>

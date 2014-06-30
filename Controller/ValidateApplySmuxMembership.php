@@ -30,6 +30,7 @@ $valuesArray = array();
 //echo $_SESSION['captcha'];
 //variables obtained
 $email = sanitizeData(filter_input(INPUT_POST, 'email'));
+$alt_email = sanitizeData(filter_input(INPUT_POST, 'alt_email'));
 
 $password = sanitizeData(filter_input(INPUT_POST, 'password'));
 $password2 = sanitizeData(filter_input(INPUT_POST, 'password2'));
@@ -91,7 +92,7 @@ if (strtolower($captcha) != strtolower($_SESSION['captcha'])) {
 
     array_push($valuesArray
             , $email
-            , $password
+            , $alt_email
             , $fullname
             , $contactnum
             , $nric
@@ -122,7 +123,7 @@ if (strtolower($captcha) != strtolower($_SESSION['captcha'])) {
 
     array_push($valuesArray
             , $email
-            , $password
+            , $alt_email
             , $fullname
             , $contactnum
             , $nric
@@ -156,7 +157,12 @@ if (strtolower($captcha) != strtolower($_SESSION['captcha'])) {
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $validation_success = false;
-        $errorArray[] = 'Invalid Email Format';
+        $errorArray[] = 'Invalid SMU Email Format';
+    }
+
+    if (!filter_var($alt_email, FILTER_VALIDATE_EMAIL)) {
+        $validation_success = false;
+        $errorArray[] = 'Invalid Alternate / Secondary Email Format';
     }
 
     if ($password == "") {
@@ -255,7 +261,7 @@ if (strtolower($captcha) != strtolower($_SESSION['captcha'])) {
 
         array_push($valuesArray
                 , $email
-                , $password
+                , $alt_email
                 , $fullname
                 , $contactnum
                 , $nric
@@ -303,7 +309,7 @@ if (strtolower($captcha) != strtolower($_SESSION['captcha'])) {
 
             array_push($valuesArray
                     , $email
-                    , $password
+                    , $alt_email
                     , $fullname
                     , $contactnum
                     , $nric
@@ -347,7 +353,7 @@ if (strtolower($captcha) != strtolower($_SESSION['captcha'])) {
 
 
             //insert statements
-            $sql_insert_to_smux_members = 'insert into smux_members values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $sql_insert_to_smux_members = 'insert into smux_members values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $sql_insert_to_member_passwords = 'insert into member_passwords(smu_email, user_password_hash, user_active, user_activation_hash, user_registration_datetime, user_registration_ip ) values(?,?,?,?,?,?)';
             $sql_insert_to_member_address = 'insert into member_address values(?, ?, ?)';
             $sql_insert_to_member_nok = 'insert into member_nok values(?, ?, ?, ?)';
@@ -383,7 +389,7 @@ if (strtolower($captcha) != strtolower($_SESSION['captcha'])) {
             $no = 'N';
 
             /* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-            $stmt1->bind_param('ssssssssssssssss', $email, $fullname, $contactnum, $nric, $gender, $nationality, $dob, $diet, $medcondition, $bloodtype, $shirtsize, $primaryteam, $secondaryteam, $alumni, $drivinglicense, $timestamp);
+            $stmt1->bind_param('sssssssssssssssss', $email, $alt_email, $fullname, $contactnum, $nric, $gender, $nationality, $dob, $diet, $medcondition, $bloodtype, $shirtsize, $primaryteam, $secondaryteam, $alumni, $drivinglicense, $timestamp);
             $stmt2->bind_param('ssisss', $email, $user_password_hash, $user_active, $user_activation_hash, $timestamp, $userIPAddress);
             $stmt3->bind_param('sss', $email, $fulladdress, $postalcode);
             $stmt4->bind_param('ssss', $email, $nokname, $nokrelation, $nokcontact);

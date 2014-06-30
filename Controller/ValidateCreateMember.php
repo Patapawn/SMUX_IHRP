@@ -16,6 +16,7 @@ $on_failure_redirect_to = "../CreateMember.php";
 
 //variables obtained
 $email = sanitizeData(filter_input(INPUT_POST, 'email'));
+$alt_email = sanitizeData(filter_input(INPUT_POST, 'alt_email'));
 
 $password = sanitizeData(filter_input(INPUT_POST, 'password'));
 
@@ -70,8 +71,14 @@ $nokcontact = sanitizeData(filter_input(INPUT_POST, 'nokcontact'));
 $errorArray = array();
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $validation_success = false;
-    $errorArray[] = 'Invalid Email Format';
+    $errorArray[] = 'Invalid SMU Email Format';
 }
+
+if (!filter_var($alt_email, FILTER_VALIDATE_EMAIL)) {
+    $validation_success = false;
+    $errorArray[] = 'Invalid Alternate / Secondary Email Format';
+}
+
 
 if ($password == "") {
     $validation_success = false;
@@ -171,7 +178,7 @@ if (!$validation_success) {
     $valuesArray = array();
     array_push($valuesArray
             , $email
-            , $password
+            , $alt_email
             , $fullname
             , $contactnum
             , $nric
@@ -205,7 +212,7 @@ if (!$validation_success) {
 //INSERT TO DATABASE
 if ($validation_success) {
 //insert statements
-    $sql_insert_to_smux_members = 'insert into smux_members values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    $sql_insert_to_smux_members = 'insert into smux_members values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sql_insert_to_member_passwords = 'insert into member_passwords values(?, ?)';
     $sql_insert_to_member_address = 'insert into member_address values(?, ?, ?)';
     $sql_insert_to_member_nok = 'insert into member_nok values(?, ?, ?, ?)';
@@ -234,7 +241,7 @@ if ($validation_success) {
     }
     $no = 'N';
     /* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
-    $stmt1->bind_param('ssssssssssssssss', $email, $fullname, $contactnum, $nric, $gender, $nationality, $dob, $diet, $medcondition, $bloodtype, $shirtsize, $primaryteam, $secondaryteam, $alumni, $drivinglicense, $timestamp);
+    $stmt1->bind_param('sssssssssssssssss', $email, $alt_email, $fullname, $contactnum, $nric, $gender, $nationality, $dob, $diet, $medcondition, $bloodtype, $shirtsize, $primaryteam, $secondaryteam, $alumni, $drivinglicense, $timestamp);
     $stmt2->bind_param('ss', $email, $password);
     $stmt3->bind_param('sss', $email, $fulladdress, $postalcode);
     $stmt4->bind_param('ssss', $email, $nokname, $nokrelation, $nokcontact);

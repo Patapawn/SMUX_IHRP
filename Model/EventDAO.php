@@ -50,6 +50,70 @@ class EventDAO {
         }
     }
 
+    public function getEventNameFromHash($event_id_md5_hash) {
+        //echo $event_id_md5_hash;
+
+        if (!$this->getDatabaseConnection()) {
+            //echo failure on lousy connection
+            return false;
+        } else {
+
+            $returnEventName = "";
+            $query = 'select * from event where event_id_md5 = ?';
+
+            $pstmt = $this->db_connection->prepare($query);
+            if ($pstmt === false) {
+                trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+                return false;
+            }
+
+            $pstmt->bind_param('s', $event_id_md5_hash);
+            $pstmt->execute();
+
+            $pstmt->bind_result($event_id, $event_id_md5, $event_name, $team, $event_type, $event_date, $description, $additional_fields, $allow_signups);
+
+            while ($pstmt->fetch()) {
+                $returnEventName = $event_name;
+            }
+
+            $pstmt->close();
+            //$this->db_connection->close();
+            return $returnEventName;
+        }
+    }
+
+    public function getEventDateFromHash($event_id_md5_hash) {
+        //echo $event_id_md5_hash;
+
+        if (!$this->getDatabaseConnection()) {
+            //echo failure on lousy connection
+            return false;
+        } else {
+
+            $returnEventDate = "";
+            $query = 'select * from event where event_id_md5 = ?';
+
+            $pstmt = $this->db_connection->prepare($query);
+            if ($pstmt === false) {
+                trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+                return false;
+            }
+
+            $pstmt->bind_param('s', $event_id_md5_hash);
+            $pstmt->execute();
+
+            $pstmt->bind_result($event_id, $event_id_md5, $event_name, $team, $event_type, $event_date, $description, $additional_fields, $allow_signups);
+
+            while ($pstmt->fetch()) {
+                $returnEventDate = $event_date;
+            }
+
+            $pstmt->close();
+            //$this->db_connection->close();
+            return $returnEventDate;
+        }
+    }
+
     /*
      *
      * this method takes in the event id md5 hash and checks if this specific event requires extra fields to be filled in
@@ -126,7 +190,7 @@ class EventDAO {
 
                 $pstmt->execute();
 
-                $this->db_connection->close();
+                //$this->db_connection->close();
                 return true;
             } else {
                 //this includes additional participant info to input to db
@@ -144,7 +208,7 @@ class EventDAO {
 
 
                 $pstmt->close();
-                $this->db_connection->close();
+                // $this->db_connection->close();
                 return true;
             }
 

@@ -73,6 +73,12 @@ include('../views/_header.php');
                             </div>
 
                             <div class="form-group">
+                                <label>Alternate / Secondary Email Address</label>
+                                <input name="alt_email" id="user_email" type="email" class="form-control" placeholder="abc@xxx.com" value= "<?php echo $_SESSION['values'][1]; ?>">
+
+                            </div>
+
+                            <div class="form-group">
                                 <label>Password</label>
                                 <input name ="password" type="password" class="form-control" placeholder="password for SMUX account" pattern=".{6,}" required autocomplete="off">
                             </div>
