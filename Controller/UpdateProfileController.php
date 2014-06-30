@@ -15,6 +15,8 @@ require_once('../Controller/DBConnection.php');
 $smu_email = sanitizeData(filter_input(INPUT_POST, 'smuemail'));
 $alt_email = sanitizeData(filter_input(INPUT_POST, 'alt_email'));
 
+
+
 $user_password = sanitizeData(filter_input(INPUT_POST, 'password'));
 
 
@@ -83,6 +85,7 @@ while ($pstmt->fetch()) {
 //echo $user_password_from_db;
 
 
+
 if (!password_verify($user_password, $user_password_from_db)) {
     //password is wrong dont even bother.
     //echo "password wrong";
@@ -97,8 +100,7 @@ if (!password_verify($user_password, $user_password_from_db)) {
     //password is correct allow user to update
     //echo "password ok";
     //write to db with updated fields
-    $sql_update = 'update smux_members set alt_email = ? contact_number = ?,diet = ?, allergies_medical = ?,blood_type = ?,shirt_size = ?,primary_team = ?,secondary_team = ?, driving_license = ? where smu_email=?';
-
+    $sql_update = 'update smux_members set alt_email = ?, contact_number = ?,diet = ?, allergies_medical = ?,blood_type = ?,shirt_size = ?,primary_team = ?,secondary_team = ?, driving_license = ? where smu_email=?';
 
     $pstmt = $con->prepare($sql_update);
     $pstmt->bind_param('ssssssssss', $alt_email, $contact_number, $diet, $medcondition, $bloodtype, $shirtsize, $primaryteam, $secondaryteam, $drivinglicense, $smu_email);
