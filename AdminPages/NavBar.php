@@ -306,10 +306,10 @@
                             <a href = "../AdminPages/CreateNewEvent.php">Create New Event</a>
                         </li>
                         <li>
-                            <a href = "#">View Current Events</a>
+                            <a href = "../AdminPages/ViewCurrentEvents.php">View Current Events</a>
                         </li>
                         <li>
-                            <a href = "#">View Past Events</a>
+                            <a href = "../AdminPages/ViewPastEvents.php">View Past Events</a>
                         </li>
                         <li>
                             <a href = "#">Search Events</a>

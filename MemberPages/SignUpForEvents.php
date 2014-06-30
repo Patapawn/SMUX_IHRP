@@ -49,6 +49,7 @@ include('../views/_protect.php');
                 $xseed = 'Xseed';
                 $smux = 'SMUX';
 
+                //only display events which signups are allowed hor!!!
                 $allow_signups = 'Y';
 
 

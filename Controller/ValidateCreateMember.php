@@ -211,6 +211,7 @@ if (!$validation_success) {
 
 //INSERT TO DATABASE
 if ($validation_success) {
+
 //insert statements
     $sql_insert_to_smux_members = 'insert into smux_members values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sql_insert_to_member_passwords = 'insert into member_passwords values(?, ?)';
@@ -218,28 +219,40 @@ if ($validation_success) {
     $sql_insert_to_member_nok = 'insert into member_nok values(?, ?, ?, ?)';
     $sql_insert_to_member_flags = 'insert into member_flags values(?,?,?,?,?,?,?,?,?)';
     /* Prepare statement */
+
     $stmt1 = $con->prepare($sql_insert_to_smux_members);
+
     $stmt2 = $con->prepare($sql_insert_to_member_passwords);
+
     $stmt3 = $con->prepare($sql_insert_to_member_address);
     $stmt4 = $con->prepare($sql_insert_to_member_nok);
     $stmt5 = $con->prepare($sql_insert_to_member_flags);
-    if ($stmt1 === false) {
-        trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
-    }
-    if ($stmt2 === false) {
-        trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
-    }
-    if ($stmt3 === false) {
-        trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
-    }
-    if ($stmt4 === false) {
-        trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
-    }
 
-    if ($stmt5 === false) {
-        trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
-    }
+    /*
+      if ($stmt1 === false) {
+      trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+      }
+      if ($stmt2 === false) {
+      trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+      }
+      if ($stmt3 === false) {
+      trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+      }
+      if ($stmt4 === false) {
+      trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+      }
+
+      if ($stmt5 === false) {
+      trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+      }
+     * */
+
+
     $no = 'N';
+    //TO FIX THE PARAMETER MISMATCH ISSUE FOR THE PASSWORDS THING>
+    //ASDFASFADSFAFASDFASD
+
+
     /* Bind parameters. TYpes: s = string, i = integer, d = double,  b = blob */
     $stmt1->bind_param('sssssssssssssssss', $email, $alt_email, $fullname, $contactnum, $nric, $gender, $nationality, $dob, $diet, $medcondition, $bloodtype, $shirtsize, $primaryteam, $secondaryteam, $alumni, $drivinglicense, $timestamp);
     $stmt2->bind_param('ss', $email, $password);

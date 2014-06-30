@@ -25,7 +25,7 @@ if (isset($_GET['profileupdated'])) {
 
 
 $redirect_to_update_profile = '../MemberPages/UpdateMyProfile.php?eventid=' . $eventidmd5hash . ' &email=' . $person_sign_up;
-
+$redirect_to_fill_extra_fields = '../MemberPages/EventAdditionalFields.php?eventid=' . $eventidmd5hash . ' &email=' . $person_sign_up;
 //1) verify user profile is updated
 //1b)go to the update my profile first.
 //2) check for additional fields which need to be supplied
@@ -45,12 +45,14 @@ if (!$profile_has_been_updated) {
 
     //does event need additional fields?
     if ($eventDAO->needsToFillInExtraFields($eventidmd5hash)) {
-        echo "need additional fields";
         //REDIRECT user to fill in the additional fields and submit.
+        header("Location: $redirect_to_fill_extra_fields");
+
+
         //once submitted redirect to success page
     } else {
 
-//event dao write to the event participant table
+        //event dao write to the event participant table
         //echo $person_sign_up;
         //echo $eventidmd5hash;
         if ($eventDAO->assignSMUXMEMBERParticipantToEvent($eventidmd5hash, $person_sign_up, "NONE")) {

@@ -48,7 +48,7 @@
                             </div>
 
                         </div>
-
+                        TO COMBINE THIS WITH SEARCH MEMBER. ALLOW TO UPDATE FROM THERE
 
 
 

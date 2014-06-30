@@ -161,6 +161,49 @@ class EventDAO {
 
     /*
      *
+     * this gets the json object of additional fields and returns this to the caller.
+     *
+     */
+
+    public function getExtraFields($event_id_md5) {
+
+        $returnJSON = false;
+        if (!$this->getDatabaseConnection()) {
+            //echo failure on lousy connection
+            return false;
+        } else {
+
+            $query = 'select additional_fields from event where event_id_md5 = ?';
+
+            $pstmt = $this->db_connection->prepare($query);
+
+            if ($pstmt === false) {
+                trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
+                return false;
+            }
+
+            $pstmt->bind_param('s', $event_id_md5);
+            $pstmt->execute();
+
+            $pstmt->bind_result($additional_fields);
+
+            while ($pstmt->fetch()) {
+
+                if (strtolower($additional_fields) == "none") {
+                    $returnJSON = false;
+                } else {
+                    $returnJSON = $additional_fields;
+                }
+            }
+
+            $pstmt->close();
+            //$this->db_connection->close();
+            return $returnJSON;
+        }
+    }
+
+    /*
+     *
      * this method takes in the event hash and the email address of person who signed up and writes to the event participant table.
      * ONLY FOR SMUX MEMBERS
      *
