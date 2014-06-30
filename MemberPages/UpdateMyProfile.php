@@ -119,6 +119,10 @@ include('../views/_protect.php');
                             <input name="smuemail" class="form-control" id="disabledInput" type="text"  value ="<?php echo $memberDetails[0]; ?>" disabled autocomplete="off">
                         </div>
 
+                        <div class="form-group">
+                            <label>Alternate / Secondary Email</label>
+                            <input name="alt_email" class="form-control" type="text"  value ="<?php echo $memberDetails[15]; ?>" autocomplete="off">
+                        </div>
 
 
                         <input type="hidden" name="smuemail" value="<?php echo $memberDetails[0]; ?>">
@@ -181,23 +185,23 @@ include('../views/_protect.php');
 
                         <div class="form-group">
                             <label>Full Address</label>
-                            <input name="fulladdress" class="form-control" placeholder="" value= "<?php echo $memberDetails[15]; ?>" required autocomplete="off">
+                            <input name="fulladdress" class="form-control" placeholder="" value= "<?php echo $memberDetails[16]; ?>" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label>Postal Code</label>
-                            <input name="postalcode" class="form-control" pattern=".{6,}" placeholder="" value= "<?php echo $memberDetails[16]; ?>" required autocomplete="off">
+                            <input name="postalcode" class="form-control" pattern=".{6,}" placeholder="" value= "<?php echo $memberDetails[17]; ?>" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label>NOK Name</label>
-                            <input name="nokname" class="form-control" placeholder="" value= "<?php echo $memberDetails[17]; ?>" required autocomplete="off">
+                            <input name="nokname" class="form-control" placeholder="" value= "<?php echo $memberDetails[18]; ?>" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label>NOK Relation</label>
-                            <input name="nokrelation" class="form-control" placeholder="" value= "<?php echo $memberDetails[18]; ?>" required autocomplete="off">
+                            <input name="nokrelation" class="form-control" placeholder="" value= "<?php echo $memberDetails[19]; ?>" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label>NOK Contact</label>
-                            <input name="nokcontact" class="form-control" placeholder="" value= "<?php echo $memberDetails[19]; ?>" required autocomplete="off">
+                            <input name="nokcontact" class="form-control" placeholder="" value= "<?php echo $memberDetails[20]; ?>" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label>Medical Conditions/ Allergies</label>

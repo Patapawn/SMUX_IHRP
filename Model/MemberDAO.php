@@ -10,6 +10,12 @@ class MemberDAO {
 
     private $db_connection = null;
 
+    /*
+     *
+     * returns the full member details from the smu_email
+     * this does not factor in passport details
+     */
+
     public function getMemberDetails($smu_email) {
 
         $returnArray = array();
@@ -20,14 +26,14 @@ class MemberDAO {
 
             //echo $smu_email;
 
-            $query = 'select smu_email, full_name, contact_number, nric, gender, nationality, dob, diet, allergies_medical, blood_type, shirt_size, primary_team, secondary_team, alumni, driving_license from smux_members where smu_email=?';
+            $query = 'select smu_email, alt_email, full_name, contact_number, nric, gender, nationality, dob, diet, allergies_medical, blood_type, shirt_size, primary_team, secondary_team, alumni, driving_license from smux_members where smu_email=?';
             $pstmt = $this->db_connection->prepare($query);
             if ($pstmt === false) {
                 trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
             }
             $pstmt->bind_param('s', $smu_email);
             $pstmt->execute();
-            $pstmt->bind_result($smu_email, $full_name, $contact_number, $nric, $gender, $nationality, $dob, $diet, $allergies_medical, $blood_type, $shirt_size, $primary_team, $secondary_team, $alumni, $driving_license);
+            $pstmt->bind_result($smu_email, $alt_email, $full_name, $contact_number, $nric, $gender, $nationality, $dob, $diet, $allergies_medical, $blood_type, $shirt_size, $primary_team, $secondary_team, $alumni, $driving_license);
             while ($pstmt->fetch()) {
                 array_push($returnArray, $smu_email);
                 array_push($returnArray, $full_name);
@@ -44,6 +50,7 @@ class MemberDAO {
                 array_push($returnArray, $secondary_team);
                 array_push($returnArray, $alumni);
                 array_push($returnArray, $driving_license);
+                array_push($returnArray, $alt_email);
             }
 
             $query = 'select address, postal_code from member_address where smu_email=?';
