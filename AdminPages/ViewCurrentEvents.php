@@ -80,7 +80,7 @@ include('../views/_header.php');
 
 
                 <?php
-                $sql_select = "select * from event where allow_signups = 'n'";
+                $sql_select = "select * from event where allow_signups = 'n' order by event_date desc";
 
                 $stmt = $con->prepare($sql_select);
                 if ($stmt === false) {

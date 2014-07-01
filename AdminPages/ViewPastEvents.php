@@ -8,16 +8,20 @@ include('../views/_header.php');
 
 
     <?php
+    $currentDate = date("Y-m-d");
+
+    //echo $currentDate;
     require '../AdminPages/NavBar.php';
     require "../Controller/DBConnection.php";
 
-    $sql_select = "select * from event where allow_signups = 'y'";
+    $sql_select = "select * from event where allow_signups = 'n' and event_date <= ? order by event_date desc";
 
 
     $stmt = $con->prepare($sql_select);
     if ($stmt === false) {
         trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $con->error, E_USER_ERROR);
     }
+    $stmt->bind_param('s', $currentDate);
     $stmt->execute();
     $stmt->bind_result($event_id, $event_id_md5, $event_name, $team, $event_type, $event_date, $description, $additional_fields, $allow_signups);
     ?>

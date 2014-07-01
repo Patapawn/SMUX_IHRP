@@ -271,7 +271,7 @@
                             <a href = "../AdminPages/CreateMember.php">Create New Member</a>
                         </li>
                         <li>
-                            <a href = "#">Download Mailing List</a>
+                            <a href = "../AdminPages/Export.php">Download Mailing List</a>
                         </li>
                         <li>
                             <a href = "../AdminPages/UpdateMemberProfile.php">Update Member Profile</a>

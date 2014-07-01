@@ -67,7 +67,7 @@ include('../views/_header.php');
 
                             <br>
                             <div class="form-group">
-                                <label>SMU Email (Needs to be valid)</label>
+                                <label>FULL SMU Email (Needs to be valid)</label>
                                 <input name="email" id="user_email" type="email" class="form-control" placeholder="abc@xxx.smu.edu.sg" value= "<?php echo $_SESSION['values'][0]; ?>">
 
                             </div>
@@ -136,15 +136,15 @@ include('../views/_header.php');
                                 <input name="postalcode" class="form-control" pattern=".{6,}" placeholder="" value= "<?php echo $_SESSION['values'][10]; ?>" required autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <label>NOK Name</label>
+                                <label>Next-Of-Kin Name</label>
                                 <input name="nokname" class="form-control" placeholder="" value= "<?php echo $_SESSION['values'][11]; ?>" required autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <label>NOK Relation</label>
+                                <label>Next-Of-Kin Relation</label>
                                 <input name="nokrelation" class="form-control" placeholder="" value= "<?php echo $_SESSION['values'][12]; ?>" required autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <label>NOK Contact</label>
+                                <label>Next-Of-Kin Contact</label>
                                 <input name="nokcontact" class="form-control" placeholder="" value= "<?php echo $_SESSION['values'][13]; ?>" required autocomplete="off">
                             </div>
                             <div class="form-group">
