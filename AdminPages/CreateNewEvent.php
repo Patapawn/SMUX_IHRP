@@ -25,6 +25,8 @@
 
 
             <?php
+            ob_start();
+            session_start();
             require '../AdminPages/NavBar.php';
             ?>
 
@@ -41,11 +43,6 @@
                                         <h4>Create An Awesome Event!</h4>
 
                                         <?php
-                                        session_start();
-
-
-
-
                                         //IF NO ERROR: GIVE USER A CONFIRMATION NOTE
                                         //get post data if error.
                                         //echo empty($_SESSION['errors']);
@@ -213,9 +210,9 @@
 
 
 
-                                                    <?php
-                                                    unset($_SESSION['values']);
-                                                    ?>
+<?php
+unset($_SESSION['values']);
+?>
                                                     <button type="reset" class="btn btn-default">Reset</button>
                                                     <button type="submit" class="btn btn-success">Create New Event!</button>
 

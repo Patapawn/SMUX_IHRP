@@ -58,17 +58,17 @@ include('../views/_header.php');
                                     some text to inform people about the $15 payment and whatever here
                                 </div>
                                 <div class="panel-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                    <p>by signing up as a smux membership you agree to PDPA blah blah blah. and smuxtremists will only use your information for whatever usage</p>
                                 </div>
                                 <div class="panel-footer">
-                                    Panel Footer
+                                    Panel Footerasdfasdfasd
                                 </div>
                             </div>
 
                             <br>
                             <div class="form-group">
                                 <label>FULL SMU Email (Needs to be valid)</label>
-                                <input name="email" id="user_email" type="email" class="form-control" placeholder="abc@xxx.smu.edu.sg" value= "<?php echo $_SESSION['values'][0]; ?>">
+                                <input name="email" id="user_email" type="email" class="form-control" placeholder="chio.bu.2012@accountancy.smu.edu.sg" value= "<?php echo $_SESSION['values'][0]; ?>">
 
                             </div>
 

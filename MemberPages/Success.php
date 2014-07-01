@@ -35,9 +35,11 @@
                     </div>
 
                     show: SUCCESSFUL REGISTRATION PAGE!
-                    perhaps this page can be the general success page for event or for whatever. decide how to render using php logic?
-
-
+                    <br>this must be damn big
+                    <br>
+                    <br>5 seconds redirect to main page
+                    <br/><strong><a href = "../index.php">Back to Home Page</a></strong>
+                    <br/><strong><a href = "../index.php">Back to Vivace Page</a></strong>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
