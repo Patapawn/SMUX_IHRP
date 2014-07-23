@@ -1,3 +1,7 @@
+<?php
+session_start();
+require '../AdminPages/NavBar.php';
+?>
 <!DOCTYPE html>
 <html>
 
@@ -24,10 +28,7 @@
         <div id="wrapper">
 
 
-            <?php
-            require '../AdminPages/NavBar.php';
-            ?>
-
+            
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
@@ -41,7 +42,7 @@
                                         Enter Member Information Here
 
                                         <?php
-                                        session_start();
+                                        
                                         //get post data if error.
                                         //echo empty($_SESSION['errors']);
                                         if ($_SESSION['errors'] != NULL) {

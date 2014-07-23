@@ -49,7 +49,7 @@ ob_start();
                         //THUS TO CHECK IF MEMBER HAS BEEN APPROVED, SMUX_MEMBER_AS_OF WILL BE LATER THAN USER_REGISTRATION_DATETIME
                         //IF NOT, BOTH STAMPS WILL BE THE SAME
 
-                        $sql = 'select nric, smux_members.smu_email, full_name, contact_number, paid_membership from smux_members inner join member_flags on smux_members.smu_email = member_flags.smu_email where paid_membership = \'N\'';
+                        $sql = 'select nric, smux_members.smu_email, full_name, contact_number, smux_member_as_of, paid_membership from smux_members inner join member_flags on smux_members.smu_email = member_flags.smu_email where paid_membership = \'N\'';
 
 
                         /* Prepare statement */
@@ -66,7 +66,7 @@ ob_start();
 
                         //iterate over results
 
-                        $stmt->bind_result($nric, $smu_email, $full_name, $contact_number, $paid_membership);
+                        $stmt->bind_result($nric, $smu_email, $full_name, $contact_number, $smux_member_as_of, $paid_membership);
                         ?>
 
                         <div class="panel panel-default">
@@ -83,6 +83,7 @@ ob_start();
                                                 <th>SMU Email</th>
                                                 <th>Full Name</th>
                                                 <th>Contact Number</th>
+                                                <th>Join Date</th>
                                                 <th>Paid?</th>
                                                 <th>Mark As Paid?</th>
                                             </tr>
@@ -96,6 +97,7 @@ ob_start();
                                                 echo '<td>' . $smu_email . ' </td>';
                                                 echo '<td>' . $full_name . ' </td>';
                                                 echo '<td>' . $contact_number . ' </td>';
+                                                echo '<td>' . $smux_member_as_of . ' </td>';
                                                 echo '<td>' . "$paid_membership" . ' </td>';
                                                 echo '<td>' .
                                                 "<a href=\"../Controller/MarkAsPaid.php?emailToMark=" . $smu_email . "\"><button type=\"button\" class=\"btn btn-default btn-circle\">
@@ -148,8 +150,11 @@ ob_start();
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
         <script>
             $(document).ready(function() {
-                $('#dataTables-example').dataTable();
+                $('#dataTables-example').dataTable({
+                    "order": [[ 4, "asc" ]]
+                });
             });
+            
         </script>
 
     </body>

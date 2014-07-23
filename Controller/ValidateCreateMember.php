@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 //get db connection
@@ -11,7 +10,7 @@ $date = new DateTime();
 //Conditions
 $validation_success = true;
 $on_success_redirect_to = "../home.php";
-$on_failure_redirect_to = "../CreateMember.php";
+$on_failure_redirect_to = "../AdminPages/CreateMember.php";
 
 
 //variables obtained
